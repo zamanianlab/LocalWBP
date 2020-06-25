@@ -16,6 +16,8 @@ local_dir="$HOME/Box/ZamanianLab/Data/WBP"
 wbp_prefix="ftp://ftp.ebi.ac.uk/pub/databases/wormbase/parasite/releases/WBPS14/species"
 
 # Species list based on genome quality
+# This file needs to be adjusted by hand so that the desired species and
+# BioProjects are listed
 species="${gh_dir}"/aux/species_selected.txt
 
 # Download data ----------------------------------------------------------------
@@ -56,10 +58,12 @@ mkdir $local_dir/all
 find $local_dir -name '*.genomic*.gz' -exec cat {} + > $local_dir/all/all.genomic_masked.fa.gz
 gunzip -k $local_dir/all/all.genomic_masked.fa.gz
 makeblastdb -in $local_dir/all/all.genomic_masked.fa -dbtype nucl
+rm $local_dir/all/all.genomic_masked.fa
 
 find $local_dir -name '*.protein.fa.gz' -exec cat {} + > $local_dir/all/all.protein.fa.gz
 gunzip -k $local_dir/all/all.protein.fa.gz
 makeblastdb -in $local_dir/all/all.protein.fa -dbtype prot
+rm $local_dir/all/all.protein.fa
 
 # Create GTF and exon RDS files ------------------------------------------------
 
